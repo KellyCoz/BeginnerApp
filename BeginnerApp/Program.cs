@@ -9,7 +9,7 @@ namespace BeginnerApp
             string a1 = " ", a2 = " ", a3 = " ", b1 = " ", b2 = " ", b3 = " ", c1 = " ", c2 = " ", c3 = " ";
             string userInput="";
             bool gameOver;
-            string endOfGame = "";
+            string endOfGame;
             int turnCount;
             
             do
@@ -24,87 +24,110 @@ namespace BeginnerApp
 
                     Console.WriteLine("Player One, please enter a coordinate. Type 'Q' to quit the game");
                     userInput = Console.ReadLine().ToUpper();
-
-                    bool repeatedValue = true;
-
-
-                    while ((repeatedValue || !CheckForValidUserInput(userInput)) && userInput != "Q")
+                    string validityChecked;
+                    string repeatedValue = "yes";
+                    do
                     {
-                        while (!CheckForValidUserInput(userInput))
+                        //repeatedValue = true;
+                        if (CheckForValidUserInput(userInput))
+                        {
+                            if (userInput == "A1" && a1 == " ") { a1 = "X"; repeatedValue = "no"; }
+                            if (userInput == "B1" && b1 == " ") { b1 = "X"; repeatedValue = "no"; }
+                            if (userInput == "C1" && c1 == " ") { c1 = "X"; repeatedValue = "no"; }
+                            if (userInput == "A2" && a2 == " ") { a2 = "X"; repeatedValue = "no"; }
+                            if (userInput == "B2" && b2 == " ") { b2 = "X"; repeatedValue = "no"; }
+                            if (userInput == "C2" && c2 == " ") { c2 = "X"; repeatedValue = "no"; }
+                            if (userInput == "A3" && a3 == " ") { a3 = "X"; repeatedValue = "no"; }
+                            if (userInput == "B3" && b3 == " ") { b3 = "X"; repeatedValue = "no"; }
+                            if (userInput == "C3" && c3 == " ") { c3 = "X"; repeatedValue = "no"; }
+
+                            validityChecked = "yes";
+                        }
+                        else
                         {
                             Console.WriteLine("Invalid entry. Please try again. Enter a valid coordinate.");
                             userInput = Console.ReadLine().ToUpper();
+                            validityChecked = "no";
                         }
-                        while (repeatedValue)
+
+                        if (validityChecked == "yes" && repeatedValue == "yes" && userInput != "Q")
                         {
-                            if (userInput == "A1" && a1 == " ") { a1 = "X"; repeatedValue = false; }
-                            if (userInput == "B1" && b1 == " ") { b1 = "X"; repeatedValue = false; }
-                            if (userInput == "C1" && c1 == " ") { c1 = "X"; repeatedValue = false; }
-                            if (userInput == "A2" && a2 == " ") { a2 = "X"; repeatedValue = false; }
-                            if (userInput == "B2" && b2 == " ") { b2 = "X"; repeatedValue = false; }
-                            if (userInput == "C2" && c2 == " ") { c2 = "X"; repeatedValue = false; }
-                            if (userInput == "A3" && a3 == " ") { a3 = "X"; repeatedValue = false; }
-                            if (userInput == "B3" && b3 == " ") { b3 = "X"; repeatedValue = false; }
-                            if (userInput == "C3" && c3 == " ") { c3 = "X"; repeatedValue = false; }
-                            if (repeatedValue == true)
-                            {
-                                Console.WriteLine("That space is already taken. Please try again.");
-                                userInput = Console.ReadLine().ToUpper();
-                            }
+                            Console.WriteLine("That space is already taken. Please try again.");
+                            userInput = Console.ReadLine().ToUpper();
+                            //validityChecked = "no";
                         }
 
-                    }
-
-                    PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
-                    gameOver = CheckForWin(a1, a2, a3, b1, b2, b3, c1, c2, c3);
-
-                    Console.WriteLine("Player Two, please enter a coordinate. Type 'Q' to quit the game");
-                    userInput = Console.ReadLine().ToUpper();
-
-                    repeatedValue = true;
-
-
-                    while ((repeatedValue || !CheckForValidUserInput(userInput))&& userInput!="Q") { 
-                        while (!CheckForValidUserInput(userInput))
-                        {
-                            Console.WriteLine("Invalid entry. Please try again. Enter a valid coordinate.");
-                            userInput = Console.ReadLine().ToUpper(); 
-                        }
-                        while (repeatedValue)
-                        {
-                            if (userInput == "A1" && a1 == " ") { a1 = "O"; repeatedValue = false; }
-                            if (userInput == "B1" && b1 == " ") { b1 = "O"; repeatedValue = false; }
-                            if (userInput == "C1" && c1 == " ") { c1 = "O"; repeatedValue = false; }
-                            if (userInput == "A2" && a2 == " ") { a2 = "O"; repeatedValue = false; }
-                            if (userInput == "B2" && b2 == " ") { b2 = "O"; repeatedValue = false; }
-                            if (userInput == "C2" && c2 == " ") { c2 = "O"; repeatedValue = false; }
-                            if (userInput == "A3" && a3 == " ") { a3 = "O"; repeatedValue = false; }
-                            if (userInput == "B3" && b3 == " ") { b3 = "O"; repeatedValue = false; }
-                            if (userInput == "C3" && c3 == " ") { c3 = "O"; repeatedValue = false; }
-                            if (repeatedValue == true)
-                            {
-                                Console.WriteLine("That space is already taken. Please try again.");
-                                userInput = Console.ReadLine().ToUpper();
-                            }
-                        }
-
-                    } 
-
-                    PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
-                    gameOver = CheckForWin(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+                    } while ((repeatedValue == "yes"|| !CheckForValidUserInput(userInput)) && userInput != "Q") ;
 
                     turnCount++;
 
-                    if(turnCount==9)
+                    if (turnCount == 9)
                     {
+                        PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
                         Console.WriteLine("It's a tie!!!");
                         Console.WriteLine("Game Over.");
+                        a1 = " "; a2 = " "; a3 = " "; b1 = " "; b2 = " "; b3 = " "; c1 = " "; c2 = " "; c3 = " ";
                         userInput = "Q";
+                        turnCount = 0;
+                    }
+                    if (userInput != "Q")
+
+                    {
+
+                        PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+                        gameOver = CheckForWin(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+
+                        Console.WriteLine("Player Two, please enter a coordinate. Type 'Q' to quit the game");
+                        userInput = Console.ReadLine().ToUpper();
+
+                        repeatedValue = "yes";
+                        validityChecked = "no";
+
+                        do
+                        {
+                            //repeatedValue = true;
+
+                            if (CheckForValidUserInput(userInput))
+                            {
+                                if (userInput == "A1" && a1 == " ") { a1 = "O"; repeatedValue = "no"; }
+                                if (userInput == "B1" && b1 == " ") { b1 = "O"; repeatedValue = "no"; }
+                                if (userInput == "C1" && c1 == " ") { c1 = "O"; repeatedValue = "no"; }
+                                if (userInput == "A2" && a2 == " ") { a2 = "O"; repeatedValue = "no"; }
+                                if (userInput == "B2" && b2 == " ") { b2 = "O"; repeatedValue = "no"; }
+                                if (userInput == "C2" && c2 == " ") { c2 = "O"; repeatedValue = "no"; }
+                                if (userInput == "A3" && a3 == " ") { a3 = "O"; repeatedValue = "no"; }
+                                if (userInput == "B3" && b3 == " ") { b3 = "O"; repeatedValue = "no"; }
+                                if (userInput == "C3" && c3 == " ") { c3 = "O"; repeatedValue = "no"; }
+
+                                validityChecked = "yes";
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid entry. Please try again. Enter a valid coordinate.");
+                                userInput = Console.ReadLine().ToUpper();
+                                validityChecked = "no";
+                            }
+
+                            if (validityChecked == "yes" && repeatedValue == "yes" && userInput != "Q")
+                            {
+                                Console.WriteLine("That space is already taken. Please try again.");
+                                userInput = Console.ReadLine().ToUpper();
+                                //validityChecked = "no";
+                            }
+
+
+                        } while ((repeatedValue == "yes" || !CheckForValidUserInput(userInput)) && userInput != "Q");
+
+                        PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+                        gameOver = CheckForWin(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+
+                        turnCount++;
                     }
                 }
 
                 Console.WriteLine("This round is over! Play again? (Y/N)");
                 endOfGame = Console.ReadLine().ToUpper();
+                userInput = "";
                 a1 = " "; a2 = " "; a3 = " "; b1 = " "; b2 = " "; b3 = " "; c1 = " "; c2 = " "; c3 = " ";
             } while (endOfGame != "N");
         }
