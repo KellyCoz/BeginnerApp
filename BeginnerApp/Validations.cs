@@ -7,56 +7,14 @@ namespace BeginnerApp
     {
         public static bool CheckForWin(string a1, string a2, string a3, string b1, string b2, string b3, string c1, string c2, string c3, ref bool gameOver)
         {
-            //bool gameOver = false;
-            string xORo = "";
-            if (a1 == a2 && a2 == a3 && a1 != " ")
+            if ((a1 == a2 && a2 == a3 && a1 != " ")|| (b1 == b2 && b2 == b3 && b1 != " ") || (c1 == c2 && c2 == c3 && c1 != " ")
+                    || (a1 == b1 && b1 == c1 && c1 != " ") || (a2 == b2 && b2 == c2 && c2 != " ") || (a3 == b3 && b3 == c3 && c3 != " ") 
+                    || (a1 == b2 && b2 == c3 && c3 != " ") || (c1 == b2 && b2 == a3 && a3 != " "))
+          
             {
-                xORo = a1;
                 gameOver = true;
             }
-            else if (b1 == b2 && b2 == b3 && b1 != " ")
-            {
-                xORo = b1;
-                gameOver = true;
-            }
-            else if (c1 == c2 && c2 == c3 && c1 != " ")
-            {
-                xORo = c1;
-                gameOver = true;
-            }
-            else if (a1 == b1 && b1 == c1 && c1 != " ")
-            {
-                xORo = a1;
-                gameOver = true;
-            }
-            else if (a2 == b2 && b2 == c2 && c2 != " ")
-            {
-                xORo = a2;
-                gameOver = true;
-            }
-            else if (a3 == b3 && b3 == c3 && c3 != " ")
-            {
-                xORo = a3;
-                gameOver = true;
-            }
-            else if (a1 == b2 && b2 == c3 && c3 != " ")
-            {
-                xORo = a1;
-                gameOver = true;
-            }
-            else if (c1 == b2 && b2 == a3 && a3 != " ")
-            {
-                xORo = c1;
-                gameOver = true;
-            }
-            if (gameOver == true && xORo == "X")
-            {
-                Console.WriteLine("Player One Wins!!!");
-            }
-            else if (gameOver == true && xORo == "O")
-            {
-                Console.WriteLine("Player Two Wins!!!");
-            }
+            
             return gameOver;
         }
         public static bool CheckForValidUserInput(string userInput)
@@ -65,6 +23,18 @@ namespace BeginnerApp
             Regex regex = new(pattern);
             return regex.IsMatch(userInput);
 
+        }
+        public static bool CheckForRepeat(string userInput, string a1, string a2, string a3, string b1, string b2, string b3, string c1, string c2, string c3)
+        {
+            bool repeat = true;
+
+            if ((userInput == "A1" && a1 == " ") || (userInput == "B1" && b1 == " ") || (userInput == "C1" && c1 == " ")
+                || (userInput == "A2" && a2 == " ") || (userInput == "B2" && b2 == " ") || (userInput == "C2" && c2 == " ")
+                || (userInput == "A3" && a3 == " ") || (userInput == "B3" && b3 == " ") || (userInput == "C3" && c3 == " "))
+            {
+                repeat = false;
+            }
+            return repeat;
         }
     }
 }
