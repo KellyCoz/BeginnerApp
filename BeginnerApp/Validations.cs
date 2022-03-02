@@ -19,8 +19,9 @@ namespace BeginnerApp
         }
         public static bool CheckForValidUserInput(string userInput)
         {
-            string pattern = @"(A|B|C)(1|2|3)";
+            string pattern = @"(A|B|C)(1|2|3)||Q";
             Regex regex = new(pattern);
+           
             return regex.IsMatch(userInput);
 
         }
@@ -30,7 +31,7 @@ namespace BeginnerApp
 
             if ((userInput == "A1" && a1 == " ") || (userInput == "B1" && b1 == " ") || (userInput == "C1" && c1 == " ")
                 || (userInput == "A2" && a2 == " ") || (userInput == "B2" && b2 == " ") || (userInput == "C2" && c2 == " ")
-                || (userInput == "A3" && a3 == " ") || (userInput == "B3" && b3 == " ") || (userInput == "C3" && c3 == " "))
+                || (userInput == "A3" && a3 == " ") || (userInput == "B3" && b3 == " ") || (userInput == "C3" && c3 == " ")||userInput=="Q")
             {
                 repeat = false;
             }

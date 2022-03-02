@@ -38,11 +38,11 @@ namespace BeginnerApp
                 while (!gameOver && userInput != "Q")
                 {
                     bool playerOneTurn = true;
-                    
-                    Console.WriteLine("\nPlayer One, please enter a coordinate. \nType 'Q' to quit the game\n");
+
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("\n" + playerOne.firstName + ", please enter a coordinate. \nType 'Q' to quit the game\n");
                     userInput = Console.ReadLine().ToUpper();
 
                     do
@@ -62,6 +62,8 @@ namespace BeginnerApp
                                 }
                                 else
                                 {
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3); 
                                     Console.WriteLine(playerOne.firstName+" Wins!!!");
                                     playerOne.sessionScore++;
                                     gameOver = true;
@@ -83,7 +85,7 @@ namespace BeginnerApp
 
                     turnCount++;
 
-                    if (turnCount == 9 && !gameOver)
+                    if (turnCount == 9 && !gameOver && userInput !="Q")
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
@@ -95,10 +97,10 @@ namespace BeginnerApp
                     }
                     else if (userInput != "Q" && !gameOver)
                     {
-                        Console.WriteLine(playerTwo.firstName+" please enter a coordinate. \nType 'Q' to quit the game\n");
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
                         Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(playerTwo.firstName + " please enter a coordinate. \nType 'Q' to quit the game\n");
                         userInput = Console.ReadLine().ToUpper();
 
                         do
@@ -116,6 +118,9 @@ namespace BeginnerApp
                                     }
                                     else
                                     {
+                                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                        PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+                                        
                                         Console.WriteLine(playerTwo.firstName+" Wins!!!");
                                         playerTwo.sessionScore++;
                                         gameOver = true;
@@ -138,11 +143,7 @@ namespace BeginnerApp
                         turnCount++;
                     }
                 }
-                if(userInput!="Q")
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
-                }
+
                 playerOne.totalGames++;
                 playerTwo.totalGames++;
                 Console.WriteLine("This round is over! Play again? (Y/N)");
