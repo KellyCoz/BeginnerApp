@@ -11,7 +11,7 @@ namespace BeginnerApp
             string endOfGame;
             int turnCount;
             string a1 = " ", a2 = " ", a3 = " ", b1 = " ", b2 = " ", b3 = " ", c1 = " ", c2 = " ", c3 = " ";
-            
+            string name;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("**************************");
             Console.WriteLine("*                        *");
@@ -19,7 +19,16 @@ namespace BeginnerApp
             Console.WriteLine("*                        *");
             Console.WriteLine("**************************");
             Console.ForegroundColor = ConsoleColor.White;
+
             
+            Console.WriteLine("\nPlayer One, please enter your name");
+            name = Console.ReadLine();
+            PlayerOne playerOne = new PlayerOne(name, 0, 0);
+
+            Console.WriteLine("\nPlayer Two, please enter your name");
+            name = Console.ReadLine();
+            PlayerTwo playerTwo = new PlayerTwo(name, 0, 0);
+
             do
             {
                 turnCount = 0;
@@ -53,20 +62,21 @@ namespace BeginnerApp
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Player One Wins!!!");
+                                    Console.WriteLine(playerOne.firstName+" Wins!!!");
+                                    playerOne.sessionScore++;
                                     gameOver = true;
                                     break;
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Player One, that space is already taken. Please try again.");
+                                Console.WriteLine(playerOne.firstName+" that space is already taken. Please try again.");
                                 userInput = Console.ReadLine().ToUpper();
                             } 
                         }
                         else
                         {
-                            Console.WriteLine("Player One, invalid entry. Please try again. Enter a valid coordinate.");
+                            Console.WriteLine("Invalid entry. Please try again. Enter a valid coordinate.");
                             userInput = Console.ReadLine().ToUpper();
                         }
                     } while (playerOneTurn && userInput != "Q" && !gameOver) ;
@@ -85,7 +95,7 @@ namespace BeginnerApp
                     }
                     else if (userInput != "Q" && !gameOver)
                     {
-                        Console.WriteLine("Player Two, please enter a coordinate. \nType 'Q' to quit the game\n");
+                        Console.WriteLine(playerTwo.firstName+" please enter a coordinate. \nType 'Q' to quit the game\n");
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
                         Console.ForegroundColor = ConsoleColor.White;
@@ -106,20 +116,21 @@ namespace BeginnerApp
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Player Two Wins!!!");
+                                        Console.WriteLine(playerTwo.firstName+" Wins!!!");
+                                        playerTwo.sessionScore++;
                                         gameOver = true;
                                         break;
                                     }
                                 }
                                 else
                                 {
-                                    Console.WriteLine("PlayerTwo, that space is already taken. Please try again.");
+                                    Console.WriteLine(playerTwo.firstName +", that space is already taken. Please try again.");
                                     userInput = Console.ReadLine().ToUpper();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Player Two, invalid entry. Please try again. Enter a valid coordinate.");
+                                Console.WriteLine("Please try again. Enter a valid coordinate.");
                                 userInput = Console.ReadLine().ToUpper();
                             }
                         } while (!playerOneTurn && userInput != "Q");
@@ -132,11 +143,32 @@ namespace BeginnerApp
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     PrintBoard(a1, a2, a3, b1, b2, b3, c1, c2, c3);
                 }
+                playerOne.totalGames++;
+                playerTwo.totalGames++;
                 Console.WriteLine("This round is over! Play again? (Y/N)");
                 endOfGame = Console.ReadLine().ToUpper();
                 userInput = "";
                 a1 = " "; a2 = " "; a3 = " "; b1 = " "; b2 = " "; b3 = " "; c1 = " "; c2 = " "; c3 = " ";
             } while (endOfGame != "N");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("\n**************************");
+            Console.WriteLine("*       GAME STATS       *");
+            Console.WriteLine("**************************");
+            Console.ForegroundColor = ConsoleColor.White;
+            if(playerOne.CalculateGameStats>playerTwo.CalculateGameStats)
+            {
+                Console.WriteLine("\n"+playerOne.firstName + " wins the session!");
+            }
+            else if(playerTwo.CalculateGameStats>playerOne.CalculateGameStats)
+            {
+                Console.WriteLine("\n" + playerTwo.firstName + " wins the session!");
+            }
+            else
+            {
+                Console.WriteLine("\nThe session ended in a tie");
+            }
+            Console.WriteLine("\n" + playerOne.firstName + " won " + playerOne.sessionScore + " games. Win Percentage: " + playerOne.CalculateGameStats);
+            Console.WriteLine("\n" + playerTwo.firstName + " won " + playerTwo.sessionScore + " games. Win Percentage: " + playerTwo.CalculateGameStats);
         }
         static void PrintBoard(string a1, string a2, string a3, string b1, string b2, string b3, string c1, string c2, string c3)
         {

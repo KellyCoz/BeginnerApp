@@ -11,22 +11,23 @@ namespace BeginnerApp
 
         public string firstName;
         public int sessionScore;
-        public int currentScore;
+        public double winPercentage;
+        public int totalGames;
         public string playerMarker;
         
         public Player(string name, int total, int score, string marker)
         {
             firstName = name;
-            sessionScore = total;
-            currentScore = score;
+            sessionScore = score;
+            totalGames = total;
             playerMarker = marker;
         }
-        public int CalculateSessionScore
+        public double CalculateGameStats
         {
             get
             {
-                sessionScore += currentScore;
-                return sessionScore;
+                winPercentage = sessionScore/totalGames*100;
+                return winPercentage;
             }
         }
         public static void PrintStats()
